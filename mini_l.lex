@@ -2,11 +2,9 @@
   int currLine = 1, currPos = 1;
 %}
 
-IDENTIFIER [a-zA-Z]
-DIGIT [0-9]
-UNDERLINE [_]
-// ## symbol for comments
-//IDENT must start with a letter(no underscore), cannot end in underscore, can contain numbers
+IDENTIFIER  [a-zA-Z]
+DIGIT 	    [0-9]
+UNDERLINE   [_]
 
 %%
 " "             //Ignore Whitespace
@@ -60,11 +58,12 @@ UNDERLINE [_]
 
 "\n"            {currLine++; currPos = 1;}
 
+{DIGIT}+ 	                                        {printf("NUMBER %s\n", yytext); currPos += yyleng;}
+{UNDERLINE}+({DIGIT}*|{IDENTIFIER}*|{UNDERLINE})*                {printf("Error with ID: %s\n", yytext);}
+({DIGIT}+)+({UNDERLINE}*|{IDENTIFIER}*|{DIGIT}*)*	{printf("Error num first");}
+{IDENTIFIER}+({UNDERLINE}*{DIGIT}*{IDENTIFIER}*)*{UNDERLINE} {printf("Error ends with underscore");}
 
-{UNDERLINE}+{DIGIT}*{IDENTIFIER}*                {printf("IDENT %s\n", yytext); currPos += yyleng;}
-{IDENTIFIER}+{UNDERLINE}*{DIGIT}*{IDENTIFIER}*   {printf("IDENT %s\n", yytext); currPos += yyleng;}
-{DIGIT}+                                         {printf("NUMBER %s\n", yytext); currPos += yyleng;}
-
+{IDENTIFIER}+({UNDERLINE}*{DIGIT}*{IDENTIFIER}*)*({DIGIT}*|{IDENTIFIER}*)*   {printf("IDENT %s\n", yytext); currPos += yyleng;}
 
 
 

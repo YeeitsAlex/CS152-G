@@ -5,65 +5,68 @@
 IDENTIFIER  [a-zA-Z]
 DIGIT 	    [0-9]
 UNDERLINE   [_]
+COMMENT     [##]
 
 %%
-" "             //Ignore Whitespace
 "function"      {printf("FUNCTION\n"); currPos += yyleng;}
-"beginparams"   {printf("BEGIN_PARAMS"); currPos += yyleng;}
-"endparams"     {printf("END_PARAMS"); currPos += yyleng;}
-"beginlocals"   {printf("BEGIN_LOCALS"); currPos += yyleng;}
-"endlocals"     {printf("END_LOCALS"); currPos += yyleng;}
-"beginbody"     {printf("BEGIN_BODY"); currPos += yyleng;}
-"endbody"       {printf("END_BODY"); currPos += yyleng;}
-"integer"       {printf("INTEGER"); currPos += yyleng;}
-"array"         {printf("ARRAY"); currPos += yyleng;}
-"of"            {printf("OF"); currPos += yyleng;}
-"if"            {printf("IF"); currPos += yyleng;}
-"then"          {printf("THEN"); currPos += yyleng;}
-"endif"         {printf("ENDIF"); currPos += yyleng;}
-"else"          {printf("ELSE"); currPos += yyleng;}
-"while"         {printf("WHILE"); currPos += yyleng;}
-"do"            {printf("DO"); currPos += yyleng;}
-"for"           {printf("FOR"); currPos += yyleng;}
-"beginloop"     {printf("BEGINLOOP"); currPos += yyleng;}
-"endloop"       {printf("ENDLOOP"); currPos += yyleng;}
-"continue"      {printf("CONTINUE"); currPos += yyleng;}
-"read"          {printf("READ"); currPos += yyleng;}
-"write"         {printf("WRITE"); currPos += yyleng;}
-"and"           {printf("AND"); currPos += yyleng;}
-"or"            {printf("OR"); currPos += yyleng;}
-"not"           {printf("NOT"); currPos += yyleng;}
-"true"          {printf("TRUE"); currPos += yyleng;}
-"false"         {printf("FALSE"); currPos += yyleng;}
-"return"        {printf("RETURN"); currPos += yyleng;}
-"-"             {printf("SUB"); currPos += yyleng;}
-"+"             {printf("ADD"); currPos += yyleng;}
-"*"             {printf("MULT"); currPos += yyleng;}
-"/"             {printf("DIV"); currPos += yyleng;}
-"%"             {printf("MOD"); currPos += yyleng;}
-"=="            {printf("EQ"); currPos += yyleng;}
-"<>"            {printf("NEQ"); currPos += yyleng;}
-"<"             {printf("LT"); currPos += yyleng;}
-">"             {printf("GT"); currPos += yyleng;}
-"<="            {printf("LTE"); currPos += yyleng;}
-">="            {printf("GTE"); currPos += yyleng;}
-";"             {printf("SEMICOLON"); currPos += yyleng;}
-":"             {printf("COLON"); currPos += yyleng;}
-","             {printf("COMMA"); currPos += yyleng;}
-"("             {printf("L_PAREN"); currPos += yyleng;}
-")"             {printf("R_PAREN"); currPos += yyleng;}
-"["             {printf("L_SQUARE_BRACKET"); currPos += yyleng;}
-"]"             {printf("R_SQUARE_BRACKET"); currPos += yyleng;}
-":="            {printf("ASSIGN"); currPos += yyleng;}
+"beginparams"   {printf("BEGIN_PARAMS\n"); currPos += yyleng;}
+"endparams"     {printf("END_PARAMS\n"); currPos += yyleng;}
+"beginlocals"   {printf("BEGIN_LOCALS\n"); currPos += yyleng;}
+"endlocals"     {printf("END_LOCALS\n"); currPos += yyleng;}
+"beginbody"     {printf("BEGIN_BODY\n"); currPos += yyleng;}
+"endbody"       {printf("END_BODY\n"); currPos += yyleng;}
+"integer"       {printf("INTEGER\n"); currPos += yyleng;}
+"array"         {printf("ARRAY\n"); currPos += yyleng;}
+"of"            {printf("OF\n"); currPos += yyleng;}
+"if"            {printf("IF\n"); currPos += yyleng;}
+"then"          {printf("THEN\n"); currPos += yyleng;}
+"endif"         {printf("ENDIF\n"); currPos += yyleng;}
+"else"          {printf("ELSE\n"); currPos += yyleng;}
+"while"         {printf("WHILE\n"); currPos += yyleng;}
+"do"            {printf("DO\n"); currPos += yyleng;}
+"for"           {printf("FOR\n"); currPos += yyleng;}
+"beginloop"     {printf("BEGINLOOP\n"); currPos += yyleng;}
+"endloop"       {printf("ENDLOOP\n"); currPos += yyleng;}
+"continue"      {printf("CONTINUE\n"); currPos += yyleng;}
+"read"          {printf("READ\n"); currPos += yyleng;}
+"write"         {printf("WRITE\n"); currPos += yyleng;}
+"and"           {printf("AND\n"); currPos += yyleng;}
+"or"            {printf("OR\n"); currPos += yyleng;}
+"not"           {printf("NOT\n"); currPos += yyleng;}
+"true"          {printf("TRUE\n"); currPos += yyleng;}
+"false"         {printf("FALSE\n"); currPos += yyleng;}
+"return"        {printf("RETURN\n"); currPos += yyleng;}
+"-"             {printf("SUB\n"); currPos += yyleng;}
+"+"             {printf("ADD\n"); currPos += yyleng;}
+"*"             {printf("MULT\n"); currPos += yyleng;}
+"/"             {printf("DIV\n"); currPos += yyleng;}
+"%"             {printf("MOD\n"); currPos += yyleng;}
+"=="            {printf("EQ\n"); currPos += yyleng;}
+"<>"            {printf("NEQ\n"); currPos += yyleng;}
+"<"             {printf("LT\n"); currPos += yyleng;}
+">"             {printf("GT\n"); currPos += yyleng;}
+"<="            {printf("LTE\n"); currPos += yyleng;}
+">="            {printf("GTE\n"); currPos += yyleng;}
+";"             {printf("SEMICOLON\n"); currPos += yyleng;}
+":"             {printf("COLON\n"); currPos += yyleng;}
+","             {printf("COMMA\n"); currPos += yyleng;}
+"("             {printf("L_PAREN\n"); currPos += yyleng;}
+")"             {printf("R_PAREN\n"); currPos += yyleng;}
+"["             {printf("L_SQUARE_BRACKET\n"); currPos += yyleng;}
+"]"             {printf("R_SQUARE_BRACKET\n"); currPos += yyleng;}
+":="            {printf("ASSIGN\n"); currPos += yyleng;}
 
 "\n"            {currLine++; currPos = 1;}
+[\t]+           {/* ignore spaces */ currPos += yyleng;}
+.               {printf("Error at line %d, column %d: unrecognized symbol \"%s\"\n", currLine, currPos, yytext); exit(0);}
 
-{DIGIT}+ 	                                        {printf("NUMBER %s\n", yytext); currPos += yyleng;}
-{UNDERLINE}+({DIGIT}*|{IDENTIFIER}*|{UNDERLINE})*                {printf("Error with ID: %s\n", yytext);}
-({DIGIT}+)+({UNDERLINE}*|{IDENTIFIER}*|{DIGIT}*)*	{printf("Error num first");}
-{IDENTIFIER}+({UNDERLINE}*{DIGIT}*{IDENTIFIER}*)*{UNDERLINE} {printf("Error ends with underscore");}
+{DIGIT}+ 	                                                                  {printf("NUMBER %s\n", yytext); currPos += yyleng;}
 
-{IDENTIFIER}+({UNDERLINE}*{DIGIT}*{IDENTIFIER}*)*({DIGIT}*|{IDENTIFIER}*)*   {printf("IDENT %s\n", yytext); currPos += yyleng;}
+{UNDERLINE}+({DIGIT}*|{IDENTIFIER}*|{UNDERLINE})*                           {printf("Error with ID: %s\n", yytext);}
+({DIGIT}+)+({UNDERLINE}*|{IDENTIFIER}*|{DIGIT}*)*	                          {printf("Error num first");}
+{IDENTIFIER}+({UNDERLINE}*{DIGIT}*{IDENTIFIER}*)*{UNDERLINE}                {printf("Error ends with underscore");}
+
+{IDENTIFIER}+({UNDERLINE}*{DIGIT}*{IDENTIFIER}*)*({DIGIT}*|{IDENTIFIER}*)*  {printf("IDENT %s\n", yytext); currPos += yyleng;}
 
 
 

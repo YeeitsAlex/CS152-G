@@ -2,12 +2,13 @@
   int currLine = 1, currPos = 1;
 %}
 
-IDENTIFIER  [a-zA-Z]
+LETTER      [a-zA-Z]
 DIGIT 	    [0-9]
-UNDERLINE   [_]
-COMMENT     [##]
+UNDERSCORE  [_]
+HASH        [#][#]
 
 %%
+{HASH}.*        {currLine++; currPos = 1;}
 "function"      {printf("FUNCTION\n"); currPos += yyleng;}
 "beginparams"   {printf("BEGIN_PARAMS\n"); currPos += yyleng;}
 "endparams"     {printf("END_PARAMS\n"); currPos += yyleng;}
@@ -58,17 +59,17 @@ COMMENT     [##]
 
 "\n"            {currLine++; currPos = 1;}
 [\t]+           {/* ignore spaces */ currPos += yyleng;}
-.               {printf("Error at line %d, column %d: unrecognized symbol \"%s\"\n", currLine, currPos, yytext); exit(0);}
-
-{DIGIT}+ 	                                                                  {printf("NUMBER %s\n", yytext); currPos += yyleng;}
-
-{UNDERLINE}+({DIGIT}*|{IDENTIFIER}*|{UNDERLINE})*                           {printf("Error with ID: %s\n", yytext);}
-({DIGIT}+)+({UNDERLINE}*|{IDENTIFIER}*|{DIGIT}*)*	                          {printf("Error num first");}
-{IDENTIFIER}+({UNDERLINE}*{DIGIT}*{IDENTIFIER}*)*{UNDERLINE}                {printf("Error ends with underscore");}
-
-{IDENTIFIER}+({UNDERLINE}*{DIGIT}*{IDENTIFIER}*)*({DIGIT}*|{IDENTIFIER}*)*  {printf("IDENT %s\n", yytext); currPos += yyleng;}
 
 
+{DIGIT}+ 	                                                                {printf("NUMBER %s\n", yytext); currPos += yyleng;}
+
+{UNDERSCORE}+({DIGIT}*|{LETTER}*|{UNDERSCORE})*                           {printf("Error at line %d, column %d: identifier \"%s\" must begin with a letter\n", currLine, currPos, yytext); exit(0);}
+({DIGIT}+)+({UNDERSCORE}*|{LETTER}*|{DIGIT}*)*	                          {printf("Error at line %d, column %d: identifier \"%s\" must begin with a letter\n", currLine, currPos, yytext); exit(0);}
+{LETTER}+({UNDERSCORE}*{DIGIT}*{LETTER}*)*{UNDERSCORE}                    {printf("Error at line %d, column %d: identifier \"%s\" cannot end with an underscore\n", currLine, currPos, yytext); exit(0);}
+
+{LETTER}+({UNDERSCORE}*{DIGIT}*{LETTER}*)*({DIGIT}*|{LETTER}*)*           {printf("IDENT %s\n", yytext); currPos += yyleng;}
+
+.                                                                         {printf("Error at line %d, column %d: unrecognized symbol \"%s\"\n", currLine, currPos, yytext); exit(0);}
 
 
 %%

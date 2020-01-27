@@ -8,6 +8,7 @@ UNDERSCORE  [_]
 HASH        [#][#]
 
 %%
+" "             {/*ignore whitespace*/ currPos += yyleng;}
 {HASH}.*        {currLine++; currPos = 1;}
 "function"      {printf("FUNCTION\n"); currPos += yyleng;}
 "beginparams"   {printf("BEGIN_PARAMS\n"); currPos += yyleng;}
@@ -57,8 +58,9 @@ HASH        [#][#]
 "]"             {printf("R_SQUARE_BRACKET\n"); currPos += yyleng;}
 ":="            {printf("ASSIGN\n"); currPos += yyleng;}
 
-"\n"            {currLine++; currPos = 1;}
 [\t]+           {/* ignore spaces */ currPos += yyleng;}
+"\n"            {currLine++; currPos = 1;}
+
 
 
 {DIGIT}+ 	                                                                {printf("NUMBER %s\n", yytext); currPos += yyleng;}

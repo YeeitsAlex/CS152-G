@@ -9,7 +9,7 @@ HASH        [#][#]
 
 %%
 " "             {/*ignore whitespace*/ currPos += yyleng;}
-{HASH}.*        {currLine++; currPos = 1;}
+{HASH}.*\n        {currLine++; currPos = 1;}
 "function"      {printf("FUNCTION\n"); currPos += yyleng;}
 "beginparams"   {printf("BEGIN_PARAMS\n"); currPos += yyleng;}
 "endparams"     {printf("END_PARAMS\n"); currPos += yyleng;}

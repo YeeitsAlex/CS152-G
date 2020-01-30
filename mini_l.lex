@@ -65,13 +65,13 @@ HASH        [#][#]
 
 {DIGIT}+ 	                                                                {printf("NUMBER %s\n", yytext); currPos += yyleng;}
 
-{UNDERSCORE}+({DIGIT}*|{LETTER}*|{UNDERSCORE})*                           {printf("Error at line %d, column %d: identifier \"%s\" must begin with a letter\n", currLine, currPos, yytext); exit(0);}
-({DIGIT}+)+({UNDERSCORE}*|{LETTER}*|{DIGIT}*)*	                          {printf("Error at line %d, column %d: identifier \"%s\" must begin with a letter\n", currLine, currPos, yytext); exit(0);}
-{LETTER}+({UNDERSCORE}*{DIGIT}*{LETTER}*)*{UNDERSCORE}                    {printf("Error at line %d, column %d: identifier \"%s\" cannot end with an underscore\n", currLine, currPos, yytext); exit(0);}
+{UNDERSCORE}+({DIGIT}*|{LETTER}*|{UNDERSCORE})*                           {printf("Error at line %d, column %d: identifier \"%s\" must begin with a letter\n", currLine, currPos, yytext);}
+{DIGIT}+({UNDERSCORE}*|{LETTER}*|{DIGIT}*)+	                          {printf("Error at line %d, column %d: identifier \"%s\" must begin with a letter\n", currLine, currPos, yytext);}
+{LETTER}+({UNDERSCORE}*{DIGIT}*{LETTER}*)*{UNDERSCORE}                    {printf("Error at line %d, column %d: identifier \"%s\" cannot end with an underscore\n", currLine, currPos, yytext);}
 
 {LETTER}+({UNDERSCORE}*{DIGIT}*{LETTER}*)*({DIGIT}*|{LETTER}*)*           {printf("IDENT %s\n", yytext); currPos += yyleng;}
 
-.                                                                         {printf("Error at line %d, column %d: unrecognized symbol \"%s\"\n", currLine, currPos, yytext); exit(0);}
+.                                                                         {printf("Error at line %d, column %d: unrecognized symbol \"%s\"\n", currLine, currPos, yytext);}
 
 
 %%
@@ -89,6 +89,6 @@ int main(int argc, char ** argv){
    {
       yyin = stdin;
    }
- 
+
   yylex();
 }

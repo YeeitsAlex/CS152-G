@@ -31,22 +31,26 @@ program:
                       | function program {printf("program -> function program\n");}
                       ;
 
-function:             FUNCTION identifier SEMICOLON BEGIN_PARAMS declarations END_PARAMS BEGIN_LOCALS declarations END_LOCALS BEGIN_BODY statements END_BODY {printf("function -> FUNCTION identifier SEMICOLON BEGIN_PARAMS declarations END_PARAMS BEGIN_LOCALS declarations END_LOCALS BEGIN_BODY statements END_BODY\n");}
+function:             FUNCTION ident SEMICOLON BEGIN_PARAMS declarations END_PARAMS BEGIN_LOCALS declarations END_LOCALS BEGIN_BODY statements END_BODY {printf("function -> FUNCTION ident SEMICOLON BEGIN_PARAMS declarations END_PARAMS BEGIN_LOCALS declarations END_LOCALS BEGIN_BODY statements END_BODY\n");}
                       ;
 
-declaration:          identifier COLON INTEGER {printf("declaration -> identifier COLON INTEGER\n");}
-                      | identifier COLON ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF INTEGER {printf("declaration -> identifier COLON ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF INTEGER\n");}
+functions:            
+                      | function functions {printf("functions -> function functions\n");}
+                      ;
+
+declaration:          ident COLON INTEGER {printf("declaration -> ident COLON INTEGER\n");}
+                      | ident COLON ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF INTEGER {printf("declaration -> ident COLON ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF INTEGER\n");}
                       ;
 
 declarations:    
                       | declaration SEMICOLON declarations {printf("declarations -> declaration SEMICOLON declarations\n");}
                       ;
                 
-identifier:           IDENT {printf("identifier -> IDENT %s\n", $1);}
+ident:                IDENT {printf("ident -> IDENT %s\n", $1);}
                       ;
 
-identifiers:          identifier {printf("identifiers -> identifier\n");}
-                      | identifier COMMA identifiers {printf("identifiers -> identifier COMMA identifiers\n");}
+identifiers:          ident {printf("identifiers -> ident\n");}
+                      | ident COMMA identifiers {printf("identifiers -> ident COMMA identifiers\n");}
                       ;
 
 statement:            vars ASSIGN expressions {printf("statement -> vars ASSIGN expressions\n");}
@@ -106,7 +110,7 @@ mult_expr:            term {printf("mult_expr -> term\n");}
                       | term MOD mult_expr {printf("mult_expr -> term MOD mult_expr\n");}
                       ;
 
-term:                 identifier L_PAREN expressions R_PAREN {printf("term -> identifier L_PAREN expressions R_PAREN\n");}
+term:                 ident L_PAREN expressions R_PAREN {printf("term -> ident L_PAREN expressions R_PAREN\n");}
                       | SUB vars {printf("term -> SUB vars\n");} 
                       | SUB NUMBER {printf("term -> SUB NUMBER\n");} 
                       | SUB L_PAREN expressions R_PAREN {printf("term -> SUB L_PAREN expressions R_PAREN\n");} 
@@ -115,8 +119,8 @@ term:                 identifier L_PAREN expressions R_PAREN {printf("term -> id
                       | L_PAREN expressions R_PAREN {printf("term -> L_PAREN expressions R_PAREN\n");}
                       ;                    
 
-var:                  identifier {printf("var -> identifier\n");}
-                      | identifier L_SQUARE_BRACKET expressions R_SQUARE_BRACKET {printf("var -> identifier L_SQUARE_BRACKET expressions R_SQUARE_BRACKET\n");}
+var:                  ident {printf("var -> ident\n");}
+                      | ident L_SQUARE_BRACKET expressions R_SQUARE_BRACKET {printf("var -> ident L_SQUARE_BRACKET expressions R_SQUARE_BRACKET\n");}
                       ;
 
 vars:                 var {printf("vars -> var\n");}

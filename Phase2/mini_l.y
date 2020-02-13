@@ -42,15 +42,12 @@ declarations:
                       | declaration SEMICOLON declarations {printf("declarations -> declaration SEMICOLON declarations\n");}
                       ;
                 
-identifiers:          identifier {printf("identifiers -> identifier\n");}
-                      | identifier COMMA identifiers {printf("identifiers -> identifier COMMA identifiers\n");}
-                      ;
-
-
 identifier:           IDENT {printf("identifier -> IDENT %s\n", $1);}
                       ;
 
-
+identifiers:          identifier {printf("identifiers -> identifier\n");}
+                      | identifier COMMA identifiers {printf("identifiers -> identifier COMMA identifiers\n");}
+                      ;
 
 statement:            vars ASSIGN expressions {printf("statement -> vars ASSIGN expressions\n");}
                       | IF bool_expr THEN statements ENDIF {printf("statement -> IF bool_expr THEN statements ENDIF\n");}
@@ -101,6 +98,7 @@ expression:           mult_expr {printf("expression -> mult_expr\n");}
 
 expressions:          expression {printf("expressions -> expression\n");}
                       | expression COMMA expressions {printf("expressions -> expression COMMA expressions\n");}
+                      ;
 
 mult_expr:            term {printf("mult_expr -> term\n");}
                       | term MULT mult_expr {printf("mult_expr -> term MULT mult_expr\n");}

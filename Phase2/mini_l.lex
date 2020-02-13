@@ -59,7 +59,7 @@ HASH        [#][#]
 ":="            {currPos += yyleng; return ASSIGN;}
 
 [\t]+           {/* ignore spaces */ currPos += yyleng;}
-"\n"            {currLine++; currPos = 1; return END;}
+"\n"            {currLine++; currPos = 1;}
 
 
 

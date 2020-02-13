@@ -53,10 +53,6 @@ identifiers:          ident {printf("identifiers -> ident\n");}
                       | ident COMMA identifiers {printf("identifiers -> ident COMMA identifiers\n");}
                       ;
 
-statements:           {printf("statements -> epsilon\n");}
-                      | statement SEMICOLON statements {printf("statements -> statement SEMICOLON statements\n");}
-                      ;
-
 statement:            var ASSIGN expression {printf("statement -> var ASSIGN expression\n");}
                       | IF bool_expr THEN statements ENDIF {printf("statement -> IF bool_expr THEN statements ENDIF\n");}
                       | IF bool_expr THEN statements ELSE statements ENDIF {printf("statement -> IF bool_expr THEN statements ELSE statements ENDIF\n");}
@@ -70,6 +66,10 @@ statement:            var ASSIGN expression {printf("statement -> var ASSIGN exp
                       | CONTINUE {printf("statement -> CONTINUE\n");} 
                       | RETURN expression {printf("statement -> RETURN expression\n");}
                       ; 
+
+statements:           {printf("statements -> epsilon\n");}
+                      | statement SEMICOLON statements {printf("statements -> statement SEMICOLON statements\n");}
+                      ;
 
 bool_expr:            relation_and_expr {printf("bool_expr -> relation_and_expr\n");}
                       | relation_and_expr OR bool_expr {printf("bool_expr -> relation_and_expr OR bool_expr\n");}
@@ -102,7 +102,6 @@ expression:           mult_expr {printf("expression -> mult_expr\n");}
                       | mult_expr SUB expression {printf("expression -> mult_expr SUB expression\n");}
                       ; 
 
-
 mult_expr:            term {printf("mult_expr -> term\n");}
                       | term MULT mult_expr {printf("mult_expr -> term MULT mult_expr\n");}
                       | term DIV mult_expr {printf("mult_expr -> term DIV mult_expr\n");}
@@ -110,10 +109,10 @@ mult_expr:            term {printf("mult_expr -> term\n");}
                       ;
 
 term:                 identifiers L_PAREN expression R_PAREN {printf("term -> identifiers L_PAREN expression R_PAREN\n");}
-                      | SUB vars {printf("term -> SUB vars\n");} 
+                      | SUB var {printf("term -> SUB var\n");} 
                       | SUB NUMBER {printf("term -> SUB NUMBER\n");} 
                       | SUB L_PAREN expression R_PAREN {printf("term -> SUB L_PAREN expression R_PAREN\n");} 
-                      | vars {printf("term -> vars\n");} 
+                      | var {printf("term -> var\n");} 
                       | NUMBER {printf("term -> NUMBER\n");} 
                       | L_PAREN expression R_PAREN {printf("term -> L_PAREN expression R_PAREN\n");}
                       ;                    

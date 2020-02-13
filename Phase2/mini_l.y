@@ -14,7 +14,7 @@
 
 
 %error-verbose
-%start input
+%start program
 %token FUNCTION BEGIN_PARAMS END_PARAMS BEGIN_LOCALS END_LOCALS BEGIN_BODY END_BODY INTEGER ARRAY OF IF THEN ENDIF ELSE WHILE DO FOR BEGINLOOP ENDLOOP CONTINUE READ WRITE AND OR NOT TRUE FALSE RETURN SEMICOLON COLON COMMA L_PAREN R_PAREN L_SQUARE_BRACKET R_SQUARE_BRACKET
 %token <id> IDENT
 %token <num> NUMBER
@@ -104,6 +104,7 @@ mult_expr:            term {printf("mult_expr -> term\n");}
                       | term MULT mult_expr {printf("mult_expr -> term MULT mult_expr\n");}
                       | term DIV mult_expr {printf("mult_expr -> term DIV mult_expr\n");}
                       | term MOD mult_expr {printf("mult_expr -> term MOD mult_expr\n");}
+                      ;
 
 term:                 identifier L_PAREN expressions R_PAREN {printf("term -> identifier L_PAREN expressions R_PAREN\n");}
                       | SUB vars {printf("term -> SUB vars\n");} 
@@ -111,7 +112,8 @@ term:                 identifier L_PAREN expressions R_PAREN {printf("term -> id
                       | SUB L_PAREN expressions R_PAREN {printf("term -> SUB L_PAREN expressions R_PAREN\n");} 
                       | vars {printf("term -> vars\n");} 
                       | NUMBER {printf("term -> NUMBER\n");} 
-                      | L_PAREN expressions R_PAREN {printf("term -> L_PAREN expressions R_PAREN\n");}                    
+                      | L_PAREN expressions R_PAREN {printf("term -> L_PAREN expressions R_PAREN\n");}
+                      ;                    
 
 var:                  identifier {printf("var -> identifier\n");}
                       | identifier L_SQUARE_BRACKET expressions R_SQUARE_BRACKET {printf("var -> identifier L_SQUARE_BRACKET expressions R_SQUARE_BRACKET\n");}
@@ -119,6 +121,7 @@ var:                  identifier {printf("var -> identifier\n");}
 
 vars:                 var {printf("vars -> var\n");}
                       | var COMMA vars {printf("vars -> var COMMA vars\n");}
+                      ;
 
 %%
 

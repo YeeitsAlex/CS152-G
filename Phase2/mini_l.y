@@ -42,12 +42,14 @@ declarations:
                       | declaration SEMICOLON declarations {printf("declarations -> declaration SEMICOLON declarations\n");}
                       ;
                 
-identifier:           IDENT {printf("identifier -> IDENT %s\n", $1);}
-                      ;
-
 identifiers:          identifier {printf("identifiers -> identifier\n");}
                       | identifier COMMA identifiers {printf("identifiers -> identifier COMMA identifiers\n");}
                       ;
+
+identifier:           IDENT {printf("identifier -> IDENT %s\n", $1);}
+                      ;
+
+
 
 statement:            vars ASSIGN expressions {printf("statement -> vars ASSIGN expressions\n");}
                       | IF bool_expr THEN statements ENDIF {printf("statement -> IF bool_expr THEN statements ENDIF\n");}

@@ -75,8 +75,8 @@ bool_expr:            relation_and_expr {printf("bool_expr -> relation_and_expr\
                       | relation_and_expr OR bool_expr {printf("bool_expr -> relation_and_expr OR bool_expr\n");}
                       ;
 
-relation_and_expr:    relation_expr {printf("relation_and_expr -> relation_and_expr\n");}
-                      | relation_expr AND relation_expr {printf("relation_and_expr -> relation_and_expr AND relation_and_expr\n");}
+relation_and_expr:    relation_expr {printf("relation_and_expr -> relation_expr\n");}
+                      | relation_expr AND relation_expr {printf("relation_and_expr -> relation_expr AND relation_expr\n");}
                       ;
 
 relation_expr:        NOT relation_expression {printf("relation_expr -> NOT relation_expr\n");}
@@ -86,7 +86,7 @@ relation_expr:        NOT relation_expression {printf("relation_expr -> NOT rela
 relation_expression: expression comp expression {printf("relation_expression -> expression comp expression\n");}
                       | TRUE  {printf("relation_expression -> TRUE\n");}
                       | FALSE {printf("relation_expression -> FALSE\n");}
-                      | L_PAREN expression comp expression R_PAREN {printf("relation_expression -> L_PAREN bool_expr R_PAREN\n");}
+                      | L_PAREN bool_expr R_PAREN {printf("relation_expression -> L_PAREN bool_expr R_PAREN\n");}
                       ;
 
 comp:                 EQ {printf("comp -> EQ\n");}

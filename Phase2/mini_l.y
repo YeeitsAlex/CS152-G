@@ -56,6 +56,8 @@ identifiers:          ident {printf("identifiers -> ident\n");}
 statement:            var ASSIGN expression {printf("statement -> var ASSIGN expression\n");}
                       | IF bool_expr THEN statements ENDIF {printf("statement -> IF bool_expr THEN statements ENDIF\n");}
                       | IF bool_expr THEN statements ELSE statements ENDIF {printf("statement -> IF bool_expr THEN statements ELSE statements ENDIF\n");}
+                      | IF bool_expr AND bool_expr THEN statements ENDIF {printf("statement -> IF bool_expr AND bool_expr THEN statements ENDIF\n");}
+                      | IF bool_expr AND bool_expr THEN statements ELSE statements ENDIF {printf("statement -> IF bool_expr AND bool_expr THEN statements ENDIF\n");}
                       | WHILE bool_expr BEGINLOOP statements ENDLOOP {printf("statement -> WHILE bool_expr BEGINLOOP statements ENDLOOP\n");}
                       | DO BEGINLOOP statements ENDLOOP WHILE bool_expr {printf("statement -> DO BEGINLOOP statements ENDLOOP WHILE bool_expn");}
                       | FOR vars ASSIGN NUMBER SEMICOLON bool_expr SEMICOLON vars ASSIGN expression BEGINLOOP statements ENDLOOP {printf("statement -> FOR vars ASSIGN NUMBER SEMICOLON bool_expr SEMICOLON vars ASSIGN expression BEGINLOOP statements ENDLOOP");}

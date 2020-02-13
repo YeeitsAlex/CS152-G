@@ -53,7 +53,7 @@ identifiers:          ident {printf("identifiers -> ident\n");}
                       | ident COMMA identifiers {printf("identifiers -> ident COMMA identifiers\n");}
                       ;
 
-statement:            vars ASSIGN expressions {printf("statement -> vars ASSIGN expressions\n");}
+statement:            var ASSIGN expression {printf("statement -> var ASSIGN expression\n");}
                       | IF bool_expr THEN statements ENDIF {printf("statement -> IF bool_expr THEN statements ENDIF\n");}
                       | IF bool_expr THEN statements ELSE statements ENDIF {printf("statement -> IF bool_expr THEN statements ELSE statements ENDIF\n");}
                       | WHILE bool_expr BEGINLOOP statements ENDLOOP {printf("statement -> WHILE bool_expr BEGINLOOP statements ENDLOOP\n");}
@@ -62,7 +62,7 @@ statement:            vars ASSIGN expressions {printf("statement -> vars ASSIGN 
                       | READ vars {printf("statement -> READ vars\n");}
                       | WRITE vars {printf("statement -> WRITE vars\n");}
                       | CONTINUE {printf("statement -> CONTINUE\n");} 
-                      | RETURN expressions {printf("statement -> RETURN expressions\n");}
+                      | RETURN expression {printf("statement -> RETURN expression\n");}
                       ;
 
 statements:       

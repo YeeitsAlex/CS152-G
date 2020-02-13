@@ -31,7 +31,7 @@ program:
                       | function program {printf("program -> function program\n");}
                       ;
 
-function:             FUNCTION identifiers SEMICOLON BEGIN_PARAMS declarations END_PARAMS BEGIN_LOCALS declarations END_LOCALS BEGIN_BODY statements END_BODY {printf("function -> FUNCTION identifiers SEMICOLON BEGIN_PARAMS declarations END_PARAMS BEGIN_LOCALS declarations END_LOCALS BEGIN_BODY statements END_BODY\n");}
+function:             FUNCTION ident SEMICOLON BEGIN_PARAMS declarations END_PARAMS BEGIN_LOCALS declarations END_LOCALS BEGIN_BODY statements END_BODY {printf("function -> FUNCTION ident SEMICOLON BEGIN_PARAMS declarations END_PARAMS BEGIN_LOCALS declarations END_LOCALS BEGIN_BODY statements END_BODY\n");}
                       ;
 
 functions:            
@@ -42,7 +42,7 @@ declaration:          identifiers COLON INTEGER {printf("declaration -> identifi
                       | identifiers COLON ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF INTEGER {printf("declaration -> identifiers COLON ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF INTEGER\n");}
                       ;
 
-declarations:    
+declarations:         
                       | declaration SEMICOLON declarations {printf("declarations -> declaration SEMICOLON declarations\n");}
                       ;
                 
@@ -53,7 +53,7 @@ identifiers:          ident {printf("identifiers -> ident\n");}
                       | ident COMMA identifiers {printf("identifiers -> ident COMMA identifiers\n");}
                       ;
 
-statement:            vars ASSIGN expressions {printf("statement -> vars ASSIGN expressions\n");}
+statement:            var ASSIGN expressions {printf("statement -> vars ASSIGN expressions\n");}
                       | IF bool_expr THEN statements ENDIF {printf("statement -> IF bool_expr THEN statements ENDIF\n");}
                       | IF bool_expr THEN statements ELSE statements ENDIF {printf("statement -> IF bool_expr THEN statements ELSE statements ENDIF\n");}
                       | WHILE bool_expr BEGINLOOP statements ENDLOOP {printf("statement -> WHILE bool_expr BEGINLOOP statements ENDLOOP\n");}

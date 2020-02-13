@@ -104,9 +104,9 @@ expression:           mult_expr {printf("expression -> mult_expr\n");}
 
 
 mult_expr:            term {printf("mult_expr -> term\n");}
-                      | term MULT mult_expr {printf("mult_expr -> term MULT mult_expr\n");}
-                      | term DIV mult_expr {printf("mult_expr -> term DIV mult_expr\n");}
-                      | term MOD mult_expr {printf("mult_expr -> term MOD mult_expr\n");}
+                      | term MULT term {printf("mult_expr -> term MULT mult_expr\n");}
+                      | term DIV term {printf("mult_expr -> term DIV mult_expr\n");}
+                      | term MOD term {printf("mult_expr -> term MOD mult_expr\n");}
                       ;
 
 term:                 identifiers L_PAREN expression R_PAREN {printf("term -> identifiers L_PAREN expression R_PAREN\n");}

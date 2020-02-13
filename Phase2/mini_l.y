@@ -59,7 +59,7 @@ statement:            vars ASSIGN expressions {printf("statement -> vars ASSIGN 
                       | WHILE bool_expr BEGINLOOP statements ENDLOOP {printf("statement -> WHILE bool_expr BEGINLOOP statements ENDLOOP\n");}
                       | DO BEGINLOOP statements ENDLOOP WHILE bool_expr {printf("statement -> DO BEGINLOOP statements ENDLOOP WHILE bool_expn");}
                       | FOR vars ASSIGN NUMBER SEMICOLON bool_expr SEMICOLON vars ASSIGN expressions BEGINLOOP statements ENDLOOP {printf("statement -> FOR vars ASSIGN NUMBER SEMICOLON bool_expr SEMICOLON vars ASSIGN expressions BEGINLOOP statements ENDLOOP");}
-                      | READ vars {printf("statement -> READ var\n");}
+                      | READ vars {printf("statement -> READ vars\n");}
                       | WRITE vars {printf("statement -> WRITE vars\n");}
                       | CONTINUE {printf("statement -> CONTINUE\n");} 
                       | RETURN expressions {printf("statement -> RETURN expressions\n");}
@@ -119,8 +119,8 @@ term:                 identifiers L_PAREN expressions R_PAREN {printf("term -> i
                       | L_PAREN expressions R_PAREN {printf("term -> L_PAREN expressions R_PAREN\n");}
                       ;                    
 
-var:                  identifiers {printf("var -> identifiers\n");}
-                      | identifiers L_SQUARE_BRACKET expressions R_SQUARE_BRACKET {printf("var -> identifiers L_SQUARE_BRACKET expressions R_SQUARE_BRACKET\n");}
+var:                  ident {printf("var -> ident\n");}
+                      | ident L_SQUARE_BRACKET expressions R_SQUARE_BRACKET {printf("var -> ident L_SQUARE_BRACKET expressions R_SQUARE_BRACKET\n");}
                       ;
 
 vars:                 var {printf("vars -> var\n");}

@@ -34,7 +34,7 @@ program:
 function:             FUNCTION ident SEMICOLON BEGIN_PARAMS declarations END_PARAMS BEGIN_LOCALS declarations END_LOCALS BEGIN_BODY statements END_BODY {printf("function -> FUNCTION ident SEMICOLON BEGIN_PARAMS declarations END_PARAMS BEGIN_LOCALS declarations END_LOCALS BEGIN_BODY statements END_BODY\n");}
                       ;
 
-functions:            {printf("functions -> epsilon\n");}
+functions:            %empty {printf("functions -> epsilon\n");}
                       | function functions {printf("functions -> function functions\n");}
                       ;
 
@@ -42,7 +42,7 @@ declaration:          identifiers COLON INTEGER {printf("declaration -> identifi
                       | identifiers COLON ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF INTEGER {printf("declaration -> identifiers COLON ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF INTEGER\n");}
                       ;
 
-declarations:         {printf("declarations -> epsilon\n");}
+declarations:         %empty {printf("declarations -> epsilon\n");}
                       | declaration SEMICOLON declarations {printf("declarations -> declaration SEMICOLON declarations\n");}
                       ;
                 
@@ -63,9 +63,9 @@ statement:            var ASSIGN expression {printf("statement -> var ASSIGN exp
                       | WRITE vars {printf("statement -> WRITE vars\n");}
                       | CONTINUE {printf("statement -> CONTINUE\n");} 
                       | RETURN expression {printf("statement -> RETURN expression\n");}
-                      ;
+                      ; 
 
-statements:           {printf("statements -> epsilon\n");}
+statements:           %empty {printf("statements -> epsilon\n");}
                       | statement SEMICOLON statements {printf("statements -> statement SEMICOLON statements\n");}
                       ;
 

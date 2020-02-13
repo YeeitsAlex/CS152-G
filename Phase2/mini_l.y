@@ -31,7 +31,7 @@ program:
                       | function program {printf("program -> function program\n");}
                       ;
 
-function:             FUNCTION ident SEMICOLON BEGIN_PARAMS declarations END_PARAMS BEGIN_LOCALS declarations END_LOCALS BEGIN_BODY statement END_BODY {printf("function -> FUNCTION ident SEMICOLON BEGIN_PARAMS declarations END_PARAMS BEGIN_LOCALS declarations END_LOCALS BEGIN_BODY statement END_BODY\n");}
+function:             FUNCTION ident SEMICOLON BEGIN_PARAMS declarations END_PARAMS BEGIN_LOCALS declarations END_LOCALS BEGIN_BODY statements END_BODY {printf("function -> FUNCTION ident SEMICOLON BEGIN_PARAMS declarations END_PARAMS BEGIN_LOCALS declarations END_LOCALS BEGIN_BODY statements END_BODY\n");}
                       ;
 
 functions:            
@@ -53,18 +53,21 @@ identifiers:          ident {printf("identifiers -> ident\n");}
                       | ident COMMA identifiers {printf("identifiers -> ident COMMA identifiers\n");}
                       ;
 
-statement:            var ASSIGN expressions {printf("statement -> vars ASSIGN expressions\n");}
-                      | IF bool_expr THEN statement ENDIF {printf("statement -> IF bool_expr THEN statement ENDIF\n");}
-                      | IF bool_expr THEN statement ELSE statement ENDIF {printf("statement -> IF bool_expr THEN statement ELSE statement ENDIF\n");}
-                      | WHILE bool_expr BEGINLOOP statement ENDLOOP {printf("statement -> WHILE bool_expr BEGINLOOP statement ENDLOOP\n");}
-                      | DO BEGINLOOP statement ENDLOOP WHILE bool_expr {printf("statement -> DO BEGINLOOP statement ENDLOOP WHILE bool_expn");}
-                      | FOR vars ASSIGN NUMBER SEMICOLON bool_expr SEMICOLON vars ASSIGN expressions BEGINLOOP statement ENDLOOP {printf("statement -> FOR vars ASSIGN NUMBER SEMICOLON bool_expr SEMICOLON vars ASSIGN expressions BEGINLOOP statement ENDLOOP");}
+statement:            vars ASSIGN expressions {printf("statement -> vars ASSIGN expressions\n");}
+                      | IF bool_expr THEN statements ENDIF {printf("statement -> IF bool_expr THEN statements ENDIF\n");}
+                      | IF bool_expr THEN statements ELSE statements ENDIF {printf("statement -> IF bool_expr THEN statements ELSE statements ENDIF\n");}
+                      | WHILE bool_expr BEGINLOOP statements ENDLOOP {printf("statement -> WHILE bool_expr BEGINLOOP statements ENDLOOP\n");}
+                      | DO BEGINLOOP statements ENDLOOP WHILE bool_expr {printf("statement -> DO BEGINLOOP statements ENDLOOP WHILE bool_expn");}
+                      | FOR vars ASSIGN NUMBER SEMICOLON bool_expr SEMICOLON vars ASSIGN expressions BEGINLOOP statements ENDLOOP {printf("statement -> FOR vars ASSIGN NUMBER SEMICOLON bool_expr SEMICOLON vars ASSIGN expressions BEGINLOOP statements ENDLOOP");}
                       | READ vars {printf("statement -> READ var\n");}
                       | WRITE vars {printf("statement -> WRITE vars\n");}
                       | CONTINUE {printf("statement -> CONTINUE\n");} 
-                      | RETURN expression {printf("statement -> RETURN expressions\n");}
+                      | RETURN expressions {printf("statement -> RETURN expressions\n");}
                       ;
 
+statements:       
+                      | statement SEMICOLON statements {printf("statements -> statement SEMICOLON statements\n");}
+                      ;
 
 bool_expr:            relation_and_expr {printf("bool_expr -> relation_and_expr\n");}
                       | relation_and_expr OR bool_expr {printf("bool_expr -> relation_and_expr OR bool_expr\n");}

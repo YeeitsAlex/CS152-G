@@ -64,7 +64,7 @@ HASH        [#][#]
 
 
 
-{DIGIT}+ 	                                                              {yylval.num = yytext; return NUMBER; currPos += yyleng;}
+{DIGIT}+ 	                                                              {yylval.num = atoi(yytext); return NUMBER; currPos += yyleng;}
 
 {UNDERSCORE}+({DIGIT}*|{LETTER}*|{UNDERSCORE})*                           {printf("Error at line %d, column %d: identifier \"%s\" must begin with a letter\n", currLine, currPos, yytext);}
 {DIGIT}+({UNDERSCORE}*|{LETTER}*|{DIGIT}*)+	                              {printf("Error at line %d, column %d: identifier \"%s\" must begin with a letter\n", currLine, currPos, yytext);}

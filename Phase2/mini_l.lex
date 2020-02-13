@@ -64,13 +64,13 @@ HASH        [#][#]
 
 
 
-{DIGIT}+ 	                                                                {printf("NUMBER %s\n", yytext); return NUMBER; currPos += yyleng;}
+{DIGIT}+ 	                                                              {yylval.num = yytext; return NUMBER; currPos += yyleng;}
 
 {UNDERSCORE}+({DIGIT}*|{LETTER}*|{UNDERSCORE})*                           {printf("Error at line %d, column %d: identifier \"%s\" must begin with a letter\n", currLine, currPos, yytext);}
 {DIGIT}+({UNDERSCORE}*|{LETTER}*|{DIGIT}*)+	                              {printf("Error at line %d, column %d: identifier \"%s\" must begin with a letter\n", currLine, currPos, yytext);}
 {LETTER}+({UNDERSCORE}*{DIGIT}*{LETTER}*)*{UNDERSCORE}                    {printf("Error at line %d, column %d: identifier \"%s\" cannot end with an underscore\n", currLine, currPos, yytext);}
 
-{LETTER}+({UNDERSCORE}*{DIGIT}*{LETTER}*)*({DIGIT}*|{LETTER}*)*           {printf("IDENT %s\n", yytext); return IDENT; currPos += yyleng;}
+{LETTER}+({UNDERSCORE}*{DIGIT}*{LETTER}*)*({DIGIT}*|{LETTER}*)*           {yylval.id = yytext; return IDENT; currPos += yyleng;}
 
 .                                                                         {printf("Error at line %d, column %d: unrecognized symbol \"%s\"\n", currLine, currPos, yytext);}
 

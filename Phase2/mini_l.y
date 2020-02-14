@@ -16,6 +16,7 @@
 %error-verbose
 %start program
 %token FUNCTION BEGIN_PARAMS END_PARAMS BEGIN_LOCALS END_LOCALS BEGIN_BODY END_BODY INTEGER ARRAY OF IF THEN ENDIF ELSE WHILE DO FOR BEGINLOOP ENDLOOP CONTINUE READ WRITE AND OR NOT TRUE FALSE RETURN SEMICOLON COLON COMMA L_PAREN R_PAREN L_SQUARE_BRACKET R_SQUARE_BRACKET
+%nonassoc UMINUS
 %token <id> IDENT
 %token <num> NUMBER
 %left MULT DIV MOD
@@ -27,14 +28,14 @@
 
 
 %%
-program:        
+program:              
                       | function program {printf("program -> function program\n");}
                       ;
 
 function:             FUNCTION ident SEMICOLON BEGIN_PARAMS declarations END_PARAMS BEGIN_LOCALS declarations END_LOCALS BEGIN_BODY statements END_BODY {printf("function -> FUNCTION ident SEMICOLON BEGIN_PARAMS declarations END_PARAMS BEGIN_LOCALS declarations END_LOCALS BEGIN_BODY statements END_BODY\n");}
                       ;
 
-functions:            {printf("functions -> epsilon\n");}
+functions:            %empty {printf("functions -> epsilon\n");}
                       | function functions {printf("functions -> function functions\n");}
                       ;
 
@@ -42,7 +43,7 @@ declaration:          identifiers COLON INTEGER {printf("declaration -> identifi
                       | identifiers COLON ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF INTEGER {printf("declaration -> identifiers COLON ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF INTEGER\n");}
                       ;
 
-declarations:         {printf("declarations -> epsilon\n");}
+declarations:         %empty {printf("declarations -> epsilon\n");}
                       | declaration SEMICOLON declarations {printf("declarations -> declaration SEMICOLON declarations\n");}
                       ;
                 

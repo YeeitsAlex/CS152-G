@@ -28,7 +28,7 @@
 
 
 %%
-program:              
+program:              %empty {printf("program -> epsilon\n");}
                       | function program {printf("program -> function program\n");}
                       ;
 
@@ -68,7 +68,7 @@ statement:            var ASSIGN expression {printf("statement -> var ASSIGN exp
                       | RETURN expression {printf("statement -> RETURN expression\n");}
                       ; 
 
-statements:           {printf("statements -> epsilon\n");}
+statements:           %empty {printf("statements -> epsilon\n");}
                       | statement SEMICOLON statements {printf("statements -> statement SEMICOLON statements\n");}
                       ;
 
@@ -84,7 +84,7 @@ relation_expr:        NOT relation_expression {printf("relation_expr -> NOT rela
                       | relation_expression {printf(" relation_expr -> relation_exprs\n");}
                       ;
 
-relation_expression: expression comp expression {printf("relation_expression -> expression comp expression\n");}
+relation_expression:  expression comp expression {printf("relation_expression -> expression comp expression\n");}
                       | TRUE  {printf("relation_expression -> TRUE\n");}
                       | FALSE {printf("relation_expression -> FALSE\n");}
                       | L_PAREN bool_expr R_PAREN {printf("relation_expression -> L_PAREN bool_expr R_PAREN\n");}

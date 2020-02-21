@@ -81,7 +81,7 @@ relation_and_expr:    relation_expr {printf("relation_and_expr -> relation_expr\
                       ;
 
 relation_expr:        NOT relation_expression {printf("relation_expr -> NOT relation_expr\n");}
-                      | relation_expression {printf(" relation_expr -> relation_exprs\n");}
+                      | relation_expression {printf("relation_expr -> relation_exprs\n");}
                       ;
 
 relation_expression:  expression comp expression {printf("relation_expression -> expression comp expression\n");}

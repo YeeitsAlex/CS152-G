@@ -77,7 +77,7 @@ bool_expr:            relation_and_expr {printf("bool_expr -> relation_and_expr\
                       ;
 
 relation_and_expr:    relation_expr {printf("relation_and_expr -> relation_expr\n");}
-                      | relation_expr AND relation_expr {printf("relation_and_expr -> relation_expr AND relation_expr\n");}
+                      | relation_expr AND relation_and_expr {printf("relation_and_expr -> relation_expr AND relation_expr\n");}
                       ;
 
 relation_expr:        NOT relation_expression {printf("relation_expr -> NOT relation_expr\n");}

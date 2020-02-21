@@ -77,18 +77,17 @@ bool_expr:            relation_and_expr {printf("bool_expr -> relation_and_expr\
                       ;
 
 relation_and_expr:    relation_expr {printf("relation_and_expr -> relation_expr\n");}
-                      | relation_expr AND relation_and_expr {printf("relation_and_expr -> relation_expr AND relation_expr\n");}
+                      | relation_expr AND relation_and_expr {printf("relation_and_expr -> relation_expr AND relation_and_expr\n");}
                       ;
 
+relation_expr:        NOT relation_expression {printf("relation_expr -> NOT relation_expr\n");}
+                      | relation_expression {printf("relation_expr -> relation_exprs\n");}
+                      ;
 
-relation_expr:        expression comp expression {printf("relation_expression -> expression comp expression\n");}
+relation_expression:  expression comp expression {printf("relation_expression -> expression comp expression\n");}
                       | TRUE  {printf("relation_expression -> TRUE\n");}
                       | FALSE {printf("relation_expression -> FALSE\n");}
                       | L_PAREN bool_expr R_PAREN {printf("relation_expression -> L_PAREN bool_expr R_PAREN\n");}
-                      | NOT expression comp expression
-                      | NOT TRUE
-                      | NOT FALSE 
-                      | NOT L_PAREN bool_expr R_PAREN
                       ;
 
 comp:                 EQ {printf("comp -> EQ\n");}
